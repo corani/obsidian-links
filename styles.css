@@ -1,0 +1,20 @@
+.links-footer {
+	margin-top: 0;
+	padding-bottom: var(--size-4-6);
+}
+
+.links-footer h2 {
+	margin-top: var(--size-4-3);
+	margin-bottom: var(--size-4-3);
+}
+
+/* Remove the editor scroll-past-end padding when our footer is present */
+.cm-sizer:has(.links-footer) .cm-content {
+	padding-bottom: 0 !important;
+}
+
+/* Hide the built-in embedded backlinks panel -- our plugin replaces it */
+.cm-sizer:has(.links-footer) .embedded-backlinks,
+.markdown-preview-section:has(.links-footer) .embedded-backlinks {
+	display: none !important;
+}

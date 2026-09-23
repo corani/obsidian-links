@@ -1,0 +1,9 @@
+{
+	"id": "obsidian-links",
+	"name": "Links",
+	"version": "0.1.0",
+	"minAppVersion": "1.4.0",
+	"description": "Appends a backlinks and outlinks section to the bottom of every note.",
+	"author": "Daniel Bos",
+	"isDesktopOnly": false
+}

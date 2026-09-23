@@ -3,6 +3,7 @@ import { getBacklinks, getOutlinks, ResolvedLink } from "./resolver";
 import type { LinksSettings } from "./settings";
 
 const FOOTER_CLS = "links-footer";
+const FOOTER_KEY_ATTR = "data-links-key";
 const rendering = new WeakMap<MarkdownView, boolean>();
 
 function getTargetContainer(view: MarkdownView): Element | null {
@@ -56,19 +57,25 @@ export async function updateView(app: App, view: MarkdownView, settings: LinksSe
 
 		const container = getTargetContainer(view);
 
-		// Remove all existing footers from this view
+		const backlinks = getBacklinks(app, file);
+		const outlinks = getOutlinks(app, file);
+		const key = `${file.path}:${backlinks.length}:${outlinks.length}`;
+
+		// No-op if the visible container already has an up-to-date footer
+		const existing = container?.querySelector(`.${FOOTER_CLS}`);
+		if (existing?.getAttribute(FOOTER_KEY_ATTR) === key) return;
+
+		// Remove all footers from this view (handles mode switches)
 		view.contentEl.querySelectorAll(`.${FOOTER_CLS}`).forEach(el => el.remove());
 
 		if (!container) return;
-
-		const backlinks = getBacklinks(app, file);
-		const outlinks = getOutlinks(app, file);
 		if (backlinks.length === 0 && outlinks.length === 0) return;
 
 		const markdown = buildMarkdown(settings, backlinks, outlinks);
 
 		const footerEl = document.createElement("div");
 		footerEl.className = FOOTER_CLS;
+		footerEl.setAttribute(FOOTER_KEY_ATTR, key);
 		container.appendChild(footerEl);
 
 		await MarkdownRenderer.render(app, markdown, footerEl, file.path, owner);

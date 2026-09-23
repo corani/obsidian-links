@@ -37,7 +37,7 @@ function buildMarkdown(settings: LinksSettings, backlinks: ResolvedLink[], outli
 	};
 
 	addCallout("example", "Backlinks", backlinks);
-	addCallout("note", "Outlinks", outlinks);
+	addCallout("seealso", "Outlinks", outlinks);
 
 	return lines.join("\n");
 }

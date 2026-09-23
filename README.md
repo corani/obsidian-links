@@ -13,7 +13,7 @@ backlinks and outlinks. No syntax required in the notes -- the section appears a
 > - [[Note B]]
 > - [[Note C]]
 
-> [!note]- Outlinks (12)
+> [!seealso]- Outlinks (12)
 > - [[Note D]]
 > - [[Note E]]
 > - … and 7 more
